@@ -1,0 +1,29 @@
+.App {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  .container {
+    text-align: center;
+  }
+  
+  .weather-icon {
+    font-size: 4em;
+    margin-top: 20px;
+  }
+  
+  .location {
+    margin-top: 20px;
+  }
+  
+  .weather-text {
+    margin-top: 10px;
+  }
+  
+  .date {
+    margin-top: 30px;
+  }

@@ -1,0 +1,46 @@
+{
+  "expo": {
+    "name": "weather",
+    "slug": "weather",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    // "notification": {
+    //   "iosDisplayInForeground": true
+    // },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "config": {
+        "googleMaps" : {
+          "apiKey" : "AIzaSyAQMwBdMmWW2y7rdFPu3gkZBEmgpDHzCKY"
+        }
+      },
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"        
+      },
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyAQMwBdMmWW2y7rdFPu3gkZBEmgpDHzCKY"
+        }
+      },
+      "package": "com.andmdk.weather",
+      // "versionCode": 1,
+      // "permissions": ["NOTIFICATIONS"]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}

@@ -77,7 +77,7 @@ export default function AlarmScreen({ navigation }) {
     await Notifications.scheduleNotificationAsync({
       content: {
         title: "오늘의 날씨",
-        body: `현재 온도는 ${weatherData.main.temp}°이고 ${weatherData.weather[0].description} 예정 입니다.`,
+        body: `현재 기온은 ${weatherData.main.temp}°이고 ${weatherData.weather[0].description} 예정 입니다.`,
         data: { data: 'weather data' },
       },
       // trigger : repeats: 매일 반복

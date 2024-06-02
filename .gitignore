@@ -8,6 +8,8 @@ node_modules/
 dist/
 web-build/
 
+app.json
+
 # Native
 *.orig.*
 *.jks

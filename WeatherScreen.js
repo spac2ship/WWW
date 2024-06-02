@@ -87,9 +87,9 @@ export default function WeatherScreen({ navigation }) {
       const { granted } = await Location.requestForegroundPermissionsAsync();
       if (!granted) throw new Error("위치 권한이 거부되었습니다. 설정에서 허용해주세요.");
       const { coords: { latitude, longitude } } = await Location.getCurrentPositionAsync({ accuracy: 5 });
-      const plocation = await Location.reverseGeocodeAsync({ latitude, longitude }, { useGoogleMaps: false });
-      setCity(plocation[0].city);
-      setRegion(plocation[0].region);
+      const location = await Location.reverseGeocodeAsync({ latitude, longitude }, { useGoogleMaps: false });
+      setCity(location[0].district);
+      setRegion(location[0].region);
       const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lang=kr&lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`);
       const json = await response.json();
       setList(json.list);
@@ -137,6 +137,7 @@ export default function WeatherScreen({ navigation }) {
       console.error("Error logging out:", error);
     }
   };
+
   return (
     <ImageBackground source={backgroundImage} style={styles.container}>
     <StatusBar style='#EF8F6E' /> 
@@ -152,8 +153,8 @@ export default function WeatherScreen({ navigation }) {
         <Text style={styles.temperatureChange}>{temperatureChange}</Text>
       </View>
       <View style={styles.city}>
-        <Text style={styles.cityName}>{city}</Text>
         <Text style={styles.regionName}>{region}</Text>
+        <Text style={styles.cityName}>{city}</Text>
         <Button
           title="Music"
           onPress={() => navigation.navigate('Music')}

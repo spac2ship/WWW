@@ -1,29 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import { Button, Icon } from 'react-native-elements';
+import { Ionicons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
+import { auth } from './firebaseConfig';
 
 const SettingScreen = ({ navigation }) => {
+  const [userEmail, setUserEmail] = useState('');
+
+  useEffect(() => {
+    const user = auth.currentUser;
+    if (user) {
+      setUserEmail(user.email);
+    }
+  }, []);
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.navigate('Weather')}>
-          <Icon name="arrow-back" color="#fff" />
+          <Ionicons name="arrow-back" size={24} color="black" />
         </TouchableOpacity>
-        {/* <TouchableOpacity>
-          <Icon name="settings" color="#fff" />
-        </TouchableOpacity> */}
       </View>
 
       <View style={styles.profileSection}>
-        <Text style={styles.username}>OO님</Text>
-        <Text style={styles.subText}>안녕하세요 OO님</Text>
+        <Text style={styles.username}>{userEmail}</Text>
+        <Text style={styles.subText}>안녕하세요 {userEmail}님</Text>
       </View>
 
       <View style={styles.settingCard}>
         <View style={styles.settingCardHeader}>
           <Text style={styles.settingTitle}>알람 설정 시간</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('Alarm')} >
-            <Icon name="alarm" color="#000" />
+          <TouchableOpacity onPress={() => navigation.navigate('Alarm')}>
+            <Ionicons name="alarm" size={24} color="black" />
           </TouchableOpacity>
         </View>
         <View style={styles.settingOptions}>
@@ -38,11 +46,13 @@ const SettingScreen = ({ navigation }) => {
         <View style={styles.settingCardHeader}>
           <Text style={styles.settingTitle}>개인 정보 설정</Text>
           <TouchableOpacity>
-            <Icon name="security" color="#000" />
+            <MaterialIcons name="security" size={24} color="black" />
           </TouchableOpacity>
         </View>
         <View style={styles.settingOptions}>
-          <Text style={styles.settingOption}>비밀번호 설정</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('ChangePassword')}>
+            <Text style={styles.settingOption}>비밀번호 설정</Text>
+          </TouchableOpacity>
           <Text style={styles.settingOption}>자주 가는 지역 설정</Text>
           <Text style={styles.settingOption}>차량 탈퇴</Text>
         </View>
@@ -50,8 +60,8 @@ const SettingScreen = ({ navigation }) => {
 
       <View style={styles.feedbackSection}>
         <Text style={styles.feedbackText}>문제나 개선 사항이 있습니까?</Text>
-        <TouchableOpacity style={styles.feedbackButton}>
-          <Text style={styles.feedbackButtonText}>Send Feedback</Text>
+        <TouchableOpacity style={styles.feedbackButton} onPress={() => navigation.navigate('Feedback')}>
+          <Text style={styles.feedbackButtonText}>피드백 보내기</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>

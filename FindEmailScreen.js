@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
-import { firestore } from './firebaseConfig'; 
-import { collection, query, where, getDocs } from 'firebase/firestore';
+import { database } from './firebaseConfig';
+import { ref, query, orderByChild, equalTo, get } from 'firebase/database';
 
 const FindEmailScreen = ({ navigation }) => {
   const [name, setName] = useState('');
@@ -13,26 +13,22 @@ const FindEmailScreen = ({ navigation }) => {
     }
 
     try {
-      console.log("Checking if name is registered in Firestore:", name);
-      const q = query(collection(firestore, "users"), where("name", "==", name));
-      const querySnapshot = await getDocs(q);
+      console.log("Checking if name is registered in Realtime Database:", name);
+      const usersRef = ref(database, 'users');
+      const q = query(usersRef, orderByChild('name'), equalTo(name));
+      const snapshot = await get(q);
 
-      if (!querySnapshot.empty) {
-       
-        const userDoc = querySnapshot.docs[0];
-        const userData = userDoc.data();
-        const email = userData.email;
-        
-        console.log("Found user with email:", email);
-        Alert.alert("Success", `해당 이름으로 등록된 이메일은 ${email} 입니다.`, [
-          { text: "OK", onPress: () => navigation.navigate('ChangePassword2', { email }) }
+      if (snapshot.exists()) {
+        const userData = snapshot.val();
+        const foundEmail = Object.values(userData)[0].email; // 첫 번째 일치하는 사용자의 이메일을 가져옴
+        Alert.alert("Success", `해당 이름으로 등록된 이메일은 ${foundEmail} 입니다.`, [
+          { text: "OK", onPress: () => navigation.navigate('ChangePassword2', { email: foundEmail }) }
         ]);
       } else {
-        
         Alert.alert("Error", "해당 이름으로 등록된 계정이 없습니다.");
       }
     } catch (error) {
-      console.error("Error finding email in Firestore:", error);
+      console.error("Error finding email in Realtime Database:", error);
       Alert.alert("Error", error.message);
     }
   };

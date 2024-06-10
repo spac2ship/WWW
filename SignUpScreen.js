@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
-import { auth, firestore } from './firebaseConfig';
+import { auth, database } from './firebaseConfig'; 
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { doc, setDoc } from 'firebase/firestore';
+import { ref, set } from 'firebase/database';
 
 const SignupScreen = ({ navigation }) => {
   const [name, setName] = useState('');
@@ -24,17 +24,24 @@ const SignupScreen = ({ navigation }) => {
 
       console.log("User created: ", user);
 
-      // Firestore에 추가 사용자 정보 저장
-      await setDoc(doc(firestore, "users", user.uid), {
-        name: name,
-        email: email
-      });
+      // Realtime Database에 추가 사용자 정보 저장
+      try {
+        await set(ref(database, 'users/' + user.uid), {
+          name: name,
+          email: email
+        });
+        console.log("User data saved in Realtime Database");
+      } catch (databaseError) {
+        console.error("Error saving user data in Realtime Database: ", databaseError);
+        Alert.alert("Error", "Realtime Database에 사용자 데이터를 저장하는 중 문제가 발생했습니다.");
+      }
 
-      console.log("User data saved in Firestore");
-
-      // 성공 시 화면 전환
-      navigation.navigate('SecondLogin');
-      console.log("Navigation to SecondLogin triggered");
+      Alert.alert("Success", "회원가입이 성공적으로 완료되었습니다.", [
+        { text: "OK", onPress: () => {
+            navigation.navigate('SecondLogin'); 
+          } 
+        }
+      ]);
 
     } catch (error) {
       console.error("Error signing up:", error);

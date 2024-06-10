@@ -9,6 +9,8 @@ dist/
 web-build/
 
 app.json
+GoogleMap.js
+GoogleMap2.js
 
 # Native
 *.orig.*

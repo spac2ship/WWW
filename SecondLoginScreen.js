@@ -49,13 +49,7 @@ const SecondLoginScreen = ({ navigation }) => {
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>로그인</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => alert('이메일로 로그인')}>
-        <Text style={styles.linkText}>이메일로 로그인</Text>
-      </TouchableOpacity>
       <View style={styles.linkContainer}>
-        <TouchableOpacity onPress={() => alert('아이디 저장')}>
-          <Text style={styles.linkText}>아이디 저장</Text>
-        </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('FindEmail')}>
           <Text style={styles.linkText}>아이디/비밀번호 찾기</Text>
         </TouchableOpacity>
@@ -104,7 +98,7 @@ const styles = StyleSheet.create({
   },
   linkContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
     width: '100%',
     marginTop: 10,
   },

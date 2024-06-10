@@ -19,7 +19,6 @@ const LoginScreen = ({ navigation }) => {
         style={styles.emailLoginButton}
         onPress={() => console.log('이메일 로그인')}
       >
-        <Text style={styles.emailLoginButtonText}>이메일로 로그인</Text>
       </TouchableOpacity>
       <View style={styles.signupContainer}>
         <Text style={styles.signupText}>아직 회원이 아니신가요? </Text>
@@ -42,7 +41,7 @@ const styles = StyleSheet.create({
   icon: {
     width: 100,
     height: 100,
-    marginBottom: 30,
+    marginBottom: 5,
   },
   loginButton: {
     backgroundColor: '#007AFF',
@@ -57,15 +56,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
   },
-  emailLoginButton: {
-    backgroundColor: 'black',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 25,
-    width: '100%',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
+
   emailLoginButtonText: {
     color: 'white',
     fontSize: 18,

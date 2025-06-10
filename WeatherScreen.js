@@ -9,7 +9,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
-const API_KEY = "44c0751c1b2e8f343c1fe73749f1aac2";
+const API_KEY = "#"; // OpenWeatherAPI KEY
 
 //clothesImages객체에 모든 이미지를 require하여 저장
 const clothesImages = {

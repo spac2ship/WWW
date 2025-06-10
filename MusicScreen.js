@@ -8,7 +8,7 @@ import { auth, database } from './firebaseConfig';
 import { ref, onValue, get } from 'firebase/database';
 import axios from 'axios';
 
-const API_KEY = "44c0751c1b2e8f343c1fe73749f1aac2";
+const API_KEY = "#"; // OpenWeatherAPI KEY
 
 const clothesImages = {
   "padding.png": require('./assets/padding.png'),
